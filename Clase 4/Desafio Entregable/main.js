@@ -175,6 +175,12 @@ const calcularISR = () => {
 
 }
 
+// ****************************************************************************************************************+
+// Funcion para el calculo de la vacaciones.
+const calcularVacaciones = () => {
+
+}
+
 let salirMenu = false;
 let menu = `
     Bienvenido a la calculadora fiscal.
