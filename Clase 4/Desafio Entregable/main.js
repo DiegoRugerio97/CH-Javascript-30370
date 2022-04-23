@@ -12,8 +12,6 @@
 const DIAS_MES = 30.5;
 const DIAS_ANIO = 365;
 
-
-
 // *********************************************************************************************************************
 // Funciones de utilidad
 // Lectura de prompts, despues sera lectura de campos
@@ -60,7 +58,17 @@ const calcularAguinaldo = () => {
     // Si se ha trabajado minimo un año en la empresa
     // aguinaldo = salario diario * dias de aguinaldo (por ley en Mexico son 15 minimos, hay empresas que dan mas como prestacion)
     // Si no, se calculan los dias proporcionales basado en los dias trabajados.
-    let salarioMensual = inputInt("¿De cuanto es tu salario mensual en pesos (MXN)?");
+    let mayorCero = false;
+    let salarioMensual;
+    while(!mayorCero){
+        salarioMensual = inputInt("¿De cuanto es tu salario mensual en pesos (MXN)?");
+        if(salarioMensual <= 0){
+            alert("Por favor introduce un valor mayor a 0.");
+        }
+        else{
+            mayorCero = true;
+        }
+    }
     let salarioDiario = salarioMensual / DIAS_MES;
     let diasAguinaldo = inputInt("¿Cuantos días de aguinaldo proporciona tu empresa?");
     let validacion = true;
@@ -88,12 +96,12 @@ const calcularISR = () => {
     // Funcion con muchas constantes, Plan -> Convertir en array de objetos para optimizar constantes.
     // Pasar logica de segmentado a una funcion aparte
     // Por el momento seran hardcodeadas.
-    let validacion = false;
+    let mayorCero = false;
     let limiteInferior;
     let cuotaFija;
     let porcentaje;
     let salarioMensual;
-    while (!validacion) {
+    while (!mayorCero) {
         salarioMensual = inputInt("¿De cuanto es tu salario mensual en pesos (MXN)?");
         if (salarioMensual >= 0) {
             if (salarioMensual > 0 && salarioMensual <= 644.58) {
@@ -151,7 +159,7 @@ const calcularISR = () => {
                 cuotaFija = 101876.91;
                 porcentaje = 0.35;
             }
-            validacion = true;
+            mayorCero = true;
         }
         else {
             alert("Por favor introduce un valor mayor a 0.");
