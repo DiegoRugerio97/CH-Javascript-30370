@@ -12,6 +12,28 @@
 const DIAS_MES = 30.5;
 const DIAS_ANIO = 365;
 
+// Constantes para calculo de retencion de impuestos
+class limite{
+    constructor(limiteInferior,limiteSuperior, cuotaFija, porcentaje){
+        this.limiteInferior = limiteInferior;
+        this.limiteSuperior = limiteSuperior;
+        this.cuotaFija = cuotaFija;
+        this.porcentaje = porcentaje;
+    }
+}
+
+const LIMITES_ISR = [new limite(0, 644.58, 0, .0192),
+                    new limite(644.58, 5470.92, 12.38, 0.064),
+                    new limite(5470.92, 9614.66, 321.26, 0.1088),
+                    new limite(9614.66, 11176.62, 772.1, 0.16),
+                    new limite(11176.62, 13381.47, 1022.01, 0.1792),
+                    new limite(13381.47, 26988.5, 1417.12, 0.2136),
+                    new limite(26988.5, 42537.58, 4323.58, 0.2352),
+                    new limite(42537.58, 81211.25, 7980.73, 0.3),
+                    new limite(81211.25, 108281.67, 19582.83, 0.32),
+                    new limite(108281.67, 324845.01, 28245.36, 0.34),
+                    new limite(324845.01, Infinity, 101876.9, 0.35)];
+
 // *********************************************************************************************************************
 // Funciones de utilidad
 // Lectura de prompts, despues sera lectura de campos
@@ -97,67 +119,15 @@ const calcularISR = () => {
     // Pasar logica de segmentado a una funcion aparte
     // Por el momento seran hardcodeadas.
     let mayorCero = false;
-    let limiteInferior;
-    let cuotaFija;
-    let porcentaje;
+    let limiteAsignado;
     let salarioMensual;
     while (!mayorCero) {
         salarioMensual = inputInt("¿De cuanto es tu salario mensual en pesos (MXN)?");
         if (salarioMensual >= 0) {
-            if (salarioMensual > 0 && salarioMensual <= 644.58) {
-                limiteInferior = 0;
-                cuotaFija = 0;
-                porcentaje = 0.0192;
-            }
-            else if (salarioMensual > 644.58 && salarioMensual <= 5470.92) {
-                limiteInferior = 644.58;
-                cuotaFija = 12.38;
-                porcentaje = 0.064;
-            }
-            else if (salarioMensual > 5470.92 && salarioMensual <= 9614.66) {
-                limiteInferior = 5470.92;
-                cuotaFija = 312.26;
-                porcentaje = 0.1088;
-            }
-            else if (salarioMensual > 9614.66 && salarioMensual <= 11176.62) {
-                limiteInferior = 9614.66;
-                cuotaFija = 772.1;
-                porcentaje = 0.16;
-            }
-            else if (salarioMensual > 11176.62 && salarioMensual <= 13381.47) {
-                limiteInferior = 11176.62;
-                cuotaFija = 1022.01;
-                porcentaje = 0.1792;
-            }
-            else if (salarioMensual > 13381.48 && salarioMensual <= 26988.5) {
-                limiteInferior = 13381.48;
-                cuotaFija = 1417.12;
-                porcentaje = 0.2136;
-            }
-            else if (salarioMensual > 26988.51 && salarioMensual <= 42537.58) {
-                limiteInferior = 26988.51;
-                cuotaFija = 4323.58;
-                porcentaje = 0.2352;
-            }
-            else if (salarioMensual > 42537.59 && salarioMensual <= 81211.25) {
-                limiteInferior = 42537.59;
-                cuotaFija = 7980.73;
-                porcentaje = 0.3;
-            }
-            else if (salarioMensual > 81211.26 && salarioMensual <= 108281.67) {
-                limiteInferior = 81211.26;
-                cuotaFija = 19582.83;
-                porcentaje = 0.32;
-            }
-            else if (salarioMensual > 108281.67 && salarioMensual <= 324845.01) {
-                limiteInferior = 108281.6;
-                cuotaFija = 28245.36;
-                porcentaje = 0.34;
-            }
-            else {
-                limiteInferior = 324845.01;
-                cuotaFija = 101876.91;
-                porcentaje = 0.35;
+            for(let limite of LIMITES_ISR){
+                if(salarioMensual > limite.limiteInferior && salarioMensual <= limite.limiteSuperior){
+                    limiteAsignado = limite;
+                }
             }
             mayorCero = true;
         }
@@ -165,7 +135,7 @@ const calcularISR = () => {
             alert("Por favor introduce un valor mayor a 0.");
         }
     }
-    let retencion = Math.round(((salarioMensual - limiteInferior) * porcentaje) + cuotaFija);
+    let retencion = Math.round(((salarioMensual - limiteAsignado.limiteInferior) * limiteAsignado.porcentaje) + limiteAsignado.cuotaFija);
     let mensaje = `
     Con un sueldo mensual de $${salarioMensual},
     tu retención de ISR según la ley federal de trabajo es de:
