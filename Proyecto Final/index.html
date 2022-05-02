@@ -23,7 +23,7 @@
     <!-- SEO Descripcion -->
     <meta
       name="description"
-      content="Responde este sencillo formulario para evaluar tu situación y nuestros expertos se pondrán en contacto contigo para brindarte las mejores soluciones para tu negocio."
+      content="Responde este sencillo formulario para evaluar tu situación y nuestros expertos se pondrán en vacacioneso contigo para brindarte las mejores soluciones para tu negocio."
     />
   </head>
   <body class="bodyFondo">
@@ -57,87 +57,90 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Blog</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Calculadora</a>
+          </li>
         </ul>
       </div>
     </nav>
+
     <!-- Breadcrumbs de BS -->
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a href="../index.html">Alianza y Consultoría Empresarial</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">Contacto</li>
+        <li class="breadcrumb-item active" aria-current="page">Calculadora</li>
       </ol>
     </nav>
     <!-- Contenido - Calculadora -->
     <main class="container">
-        <ul class="nav nav-tabs row" id="myTab" role="tablist">
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                id="home-tab"
-                data-toggle="tab"
-                href="#home"
-                role="tab"
-                aria-controls="home"
-                aria-selected="true"
-                >Home</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                id="profile-tab"
-                data-toggle="tab"
-                href="#profile"
-                role="tab"
-                aria-controls="profile"
-                aria-selected="false"
-                >Profile</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                id="contact-tab"
-                data-toggle="tab"
-                href="#contact"
-                role="tab"
-                aria-controls="contact"
-                aria-selected="false"
-                >Contact</a
-              >
-            </li>
-          </ul>
-          <div class="tab-content" id="myTabContent">
-            <div
-              class="tab-pane fade show active"
-              id="home"
-              role="tabpanel"
-              aria-labelledby="home-tab"
-            >
-              ...
-            </div>
-            <div
-              class="tab-pane fade"
-              id="profile"
-              role="tabpanel"
-              aria-labelledby="profile-tab"
-            >
-              ...
-            </div>
-            <div
-              class="tab-pane fade"
-              id="contact"
-              role="tabpanel"
-              aria-labelledby="contact-tab"
-            >
-              ...
-            </div>
-          </div>
+      <!-- Tabs para cambiar de tipo de calculadora -->
+      <ul class="nav nav-tabs row" id="tabPagina" role="tablist">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            id="tabAguinaldo"
+            data-toggle="tab"
+            href="#aguinaldo"
+            role="tab"
+            aria-controls="aguinaldo"
+            aria-selected="true"
+            >Aguinaldo</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="tabRetencion"
+            data-toggle="tab"
+            href="#retencion"
+            role="tab"
+            aria-controls="retencion"
+            aria-selected="false"
+            >Retención de Impuestos</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="tabVacaciones"
+            data-toggle="tab"
+            href="#vacaciones"
+            role="tab"
+            aria-controls="vacaciones"
+            aria-selected="false"
+            >Vacaciones</a
+          >
+        </li>
+      </ul>
+
+      <!-- Contenido -->
+      <section class="tab-content" id="tabPagina">
+        <div
+          class="tab-pane fade show active"
+          id="aguinaldo"
+          role="tabpanel"
+          aria-labelledby="tabAguinaldo"
+        ></div>
+
+        <div
+          class="tab-pane fade"
+          id="retencion"
+          role="tabpanel"
+          aria-labelledby="tabRetencion"
+        ></div>
+
+        <div
+          class="tab-pane fade"
+          id="vacaciones"
+          role="tabpanel"
+          aria-labelledby="tabVacaciones"
+        ></div>
+
+      </section>
     </main>
 
-   
     <!-- Footer v2.0 -->
     <footer class="footer container-fluid px-0">
       <div class="footerUpper centrado">
@@ -157,6 +160,7 @@
           <ul>
             <li><a href="#">Servicios</a></li>
             <li><a href="#">Contacto</a></li>
+            <li><a href="#">Calculadora</a></li>
           </ul>
         </div>
         <div>
@@ -165,21 +169,6 @@
             <li><a href="#">Conocenos</a></li>
             <li><a href="#">Blog</a></li>
           </ul>
-        </div>
-        <!-- No funcional -->
-        <div>
-          <span class="footerNavTitulo">Suscribete</span>
-          <form>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="inputCorreo">Correo Electronico</label>
-                <input type="mail" class="form-control" id="inputCorreo" />
-              </div>
-            </div>
-            <div class="form-group">
-              <button type="button" class="btn btn-light">Enviar</button>
-            </div>
-          </form>
         </div>
       </div>
     </footer>

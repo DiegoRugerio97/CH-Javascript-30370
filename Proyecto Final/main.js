@@ -4,9 +4,14 @@
 // 23/04/2022
 // Calculo de Aguinaldo - IMPLEMENTADO
 // Calculo de Retencion de impuestos - IMPLEMENTADO
-// Calculo de Vacaciones - SIN IMPLEMENTAR
+// Calculo de Vacaciones - CAMBIO A CALCULO DE DECLARACION ANUAL
+// Declaracion Anual
 
 // *********************************************************************************************************************
+
+
+
+
 // Constantes
 
 const DIAS_MES = 30.5;
@@ -123,7 +128,6 @@ const calcularISR = () => {
     // Calculo de la retencion del ISR sobre el salario, basado en los limites establecidos por la ley federal del trabajo mexicana.
     // Variable para la validacion
     let mayorCero = false;
-
     // Variable para guardar el objeto limite despues de segmentar el salario
     let limiteAsignado;
     // Variable para guardar el salario mensual del usuario
@@ -132,25 +136,19 @@ const calcularISR = () => {
         salarioMensual = inputInt("¿De cuanto es tu salario mensual en pesos (MXN)?");
         if (salarioMensual >= 0) {
             // Implementacion de logica de segmentado utilizando un array de objetos limite.
-            // Plan -> Optimizarlo utilizando .filter() o alguna otra funcion de arrays.
-            for (let limite of LIMITES_ISR) {
-                if (salarioMensual > limite.limiteInferior && salarioMensual <= limite.limiteSuperior) {
-                    // Regresa objeto con informacion del limite salarial.
-                    limiteAsignado = limite;
-                }
-            }
+            limiteAsignado = LIMITES_ISR.find((lim) => { return salarioMensual > lim.limiteInferior && salarioMensual <= lim.limiteSuperior});
+            // Metodo para el calculo de la retencion.
+            limiteAsignado.calcularRetencion(salarioMensual);
             mayorCero = true;
         }
         else {
             alert("Por favor introduce un valor mayor a 0.");
         }
     }
-    // Metodo para el calculo de la retencion.
-    let retencion = limiteAsignado.calcularRetencion(salarioMensual);
     let mensaje = `
     Con un sueldo mensual de $${salarioMensual},
     tu retención de ISR según la ley federal de trabajo es de:
-    $${retencion}, resultando en un ingreso de $${salarioMensual - retencion}.
+    $${limiteAsignado.retencion}, resultando en un ingreso de $${salarioMensual - limiteAsignado.retencion}.
     `;
     return mensaje;
 }
