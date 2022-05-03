@@ -481,7 +481,7 @@ template {
 }
 
 .btn-light {
-  background-image: linear-gradient(#fcf7f7, rgba(207, 205, 205, 0.377));
+  background-image: linear-gradient(#fcf7f7, rgba(207, 205, 205, 0.658));
   color: #000000;
   border: 1px solid #8a8a8a;
 }
@@ -634,5 +634,20 @@ legend{
   }
 }
 
+/* Clases de calculadora */
+.contenedorDec{
+  display: flex;
+  flex-flow: column nowrap;
+}
 
-/*# sourceMappingURL=styles.css.map */
+.formDec{
+  width: 96%;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.contenedorResultados{
+  background-color: #f5f5f5;
+  padding: 10px;
+}

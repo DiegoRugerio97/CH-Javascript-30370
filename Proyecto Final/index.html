@@ -240,12 +240,89 @@
         </div>
 
         <div
-          class="tab-pane fade"
+          class="tab-pane fade contenedorCalculadora"
           id="declaracionAnual"
           role="tabpanel"
           aria-labelledby="tabAnual"
         >
-          <h1>En construccion</h1>
+        <!-- Form para agregar conceptos -->
+          <div class="formDec centrado">
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputTipo">Tipo de concepto</label>
+                  <select class="custom-select" id="inputTipo">
+                    <option value="ingreso" selected>Ingreso</option>
+                    <option value="gastoDeducible">Gasto Deducible</option>
+                  </select>
+                  <small id="inputTipoAux" class="form-text text-muted">
+                    Selecciona el tipo de concepto a registrar.
+                  </small>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputConcepto">Concepto del ingreso/gasto</label>
+                  <input
+                    type="text"
+                    class="form-control campoTexto"
+                    id="inputConcepto"
+                  />
+                  <small id="inputTipoAux" class="form-text text-muted">
+                    Introduce la descripción del concepto.
+                  </small>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputMes">Mes del ingreso/gasto deducible</label>
+                  <select class="custom-select" id="inputMes">
+                    <option value="enero" selected>Enero</option>
+                    <option value="feb" selected>Febrero</option>
+                    <option value="marzo" selected>Marzo</option>
+                    <option value="abril" selected>Abril</option>
+                    <option value="mayo" selected>Mayo</option>
+                    <option value="jun" selected>Junio</option>
+                    <option value="jul" selected>Julio</option>
+                    <option value="ago" selected>Agosto</option>
+                    <option value="sep" selected>Septiembre</option>
+                    <option value="oct" selected>Octubre</option>
+                    <option value="nov" selected>Noviembre</option>
+                    <option value="dic" selected>Diciembre</option>
+                  </select>
+                  <small id="inputMesAux" class="form-text text-muted">
+                    Selecciona el mes donde se realizo el gasto o se obtuvo el
+                    ingreso.
+                  </small>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputMonto"
+                    >Monto del concepto en pesos mexicanos (MXN).</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control campoTexto"
+                    id="inputMonto"
+                  />
+                  <small id="inputMontoAux" class="form-text text-muted">
+                    Introduce el monto del ingreso o del gasto deducible.
+                  </small>
+                </div>
+              </div>
+              <div class="form-row">
+                <button type="button" class="btn btn-light centrado">
+                  Agregar concepto
+                </button>
+              </div>
+            </form>
+          </div>
+          <!-- Donde ir agregando las cards -->
+          <div class="contenedorResultados">
+            <!-- Colocar cards de ingresos -->
+            <div></div>
+            <!-- Colocar cards de gastos -->
+            <div></div>
+          </div>
+
         </div>
       </section>
     </main>
