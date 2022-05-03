@@ -227,7 +227,7 @@ const construirDeclaracionAnual = (arrayIngresos, arrayGastos) => {
     alert(reportar(arrayGastos));
     if (arrayGastos.length > 0 && arrayIngresos.length > 0) {
         let resultado = compararAcumulados(arrayIngresos, arrayGastos);
-        reportarResultados(resultado);
+        alert(reportarResultados(resultado));
     }
     else {
         alert("Favor de registrar ingresos y gastos");
@@ -238,7 +238,6 @@ const construirDeclaracionAnual = (arrayIngresos, arrayGastos) => {
 
 
 const calcularDeclaracionAnual = () => {
-
     let ingresos = [];
     let gastosDeducibles = [];
     let salir = false;
@@ -270,6 +269,7 @@ const calcularDeclaracionAnual = () => {
                 break;
             case 'c':
                 construirDeclaracionAnual(ingresos, gastosDeducibles);
+                break;
             case 'S':
                 salir = true;
                 break;
