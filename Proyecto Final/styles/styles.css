@@ -477,6 +477,7 @@ template {
 
 .btn {
   transition: all 0.5s;
+  text-align: center;
 }
 
 .btn-light {
@@ -569,6 +570,15 @@ a:hover {
 
 .collapsed:hover {
   text-decoration: none;
+}
+
+legend{
+  font-size: 1rem;
+}
+
+.tab-content{
+  padding: 20px;
+  min-height: 80vh;
 }
 
 @keyframes aparecer {
