@@ -304,6 +304,7 @@ let menu = `
     A - Aguinaldo.
     R - Retencion del ISR del salario.
     D - Declaración anual.
+    T - Creacion de tablas de limite.
     Introduce 'S' para salir.
 `;
 
@@ -337,6 +338,11 @@ do {
             break;
         case 't':
             crearTablaLimites(LIMITES_ISR);
+            alert("Tablas creadas en tab Retencion");
+            break;
+        case 'T':
+            crearTablaLimites(LIMITES_ISR);
+            alert("Tablas creadas en tab Retencion");
             break;
         default:
             alert("Por favor, introduzca una opción válida.")
