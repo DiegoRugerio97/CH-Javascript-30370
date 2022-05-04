@@ -124,7 +124,7 @@
           aria-labelledby="tabAguinaldo"
         >
           <form>
-            <!-- Range para el salario -->
+            <!-- Input para el salario -->
             <div class="form-row">
               <div class="form-group col-md-12">
                 <label for="inputSalario">Salario Mensual (MXN)</label>
@@ -219,33 +219,51 @@
           role="tabpanel"
           aria-labelledby="tabRetencion"
         >
-          <form>
-            <div class="form-row">
-              <!-- Range para el salario -->
-              <div class="form-group col-md-12">
-                <label for="inputSalarioISR">Salario Mensual (MXN)</label>
-                <input
-                  type="number"
-                  class="form-control campoTexto"
-                  id="inputSalarioISR"
-                />
+          <div class="contenedorFlex">
+            <form>
+              <div class="form-row">
+                <!-- Input para el salario -->
+                <div class="form-group col-md-12">
+                  <label for="inputSalarioISR">Salario Mensual (MXN)</label>
+                  <input
+                    type="number"
+                    class="form-control campoTexto"
+                    id="inputSalarioISR"
+                  />
+                </div>
               </div>
+              <div class="form-row">
+                <button type="button" class="btn btn-light centrado">
+                  Calcular Retención de impuestos.
+                </button>
+              </div>
+            </form>
+            <!-- Tabla de segmentos con JS -->
+            <div>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Lìmite Inferior (MXN)</th>
+                    <th scope="col">Lìmite Superior (MXN)</th>
+                    <th scope="col">Cuota Fija (MXN)</th>
+                    <th scope="col">% Sobre excedente</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBodySegmentos">
+                  <!-- Contenido creado en JS -->
+                </tbody>
+              </table>
             </div>
-            <div class="form-row">
-              <button type="button" class="btn btn-light centrado">
-                Calcular Retención de impuestos.
-              </button>
-            </div>
-          </form>
+          </div>
         </div>
 
         <div
-          class="tab-pane fade contenedorCalculadora"
+          class="tab-pane fade"
           id="declaracionAnual"
           role="tabpanel"
           aria-labelledby="tabAnual"
         >
-        <!-- Form para agregar conceptos -->
+          <!-- Form para agregar conceptos -->
           <div class="formDec centrado">
             <form>
               <div class="form-row">
@@ -322,7 +340,6 @@
             <!-- Colocar cards de gastos -->
             <div></div>
           </div>
-
         </div>
       </section>
     </main>

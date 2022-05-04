@@ -153,6 +153,21 @@ const calcularISR = () => {
     return mensaje;
 }
 
+// Funcion para crear la tabla en HTML con JS
+const crearTablaLimites = (arrayLimites) => {
+    let tableBody = document.getElementById("tableBodySegmentos");
+    arrayLimites.forEach((limite) => {
+        let tableRow = document.createElement("tr");
+        let contenidoRow = `<th scope="row">$ ${limite.limiteInferior}</th>
+        <td>$ ${limite.limiteSuperior}</td>
+        <td>$ ${limite.cuotaFija}</td>
+        <td>${(limite.porcentaje * 100).toFixed(2)}%</td>`;
+        tableRow.innerHTML = contenidoRow;
+        tableBody.append(tableRow);
+    });
+}
+
+
 // ****************************************************************************************************************+
 // Funcion para el calculo de la vacaciones.
 // Clase para ingresos
@@ -232,8 +247,6 @@ const construirDeclaracionAnual = (arrayIngresos, arrayGastos) => {
     else {
         alert("Favor de registrar ingresos y gastos");
     }
-
-
 }
 
 
@@ -321,6 +334,9 @@ do {
             break;
         case 's':
             salirMenu = true;
+            break;
+        case 't':
+            crearTablaLimites(LIMITES_ISR);
             break;
         default:
             alert("Por favor, introduzca una opción válida.")

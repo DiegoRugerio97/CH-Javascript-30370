@@ -635,9 +635,11 @@ legend{
 }
 
 /* Clases de calculadora */
-.contenedorDec{
+.contenedorFlex{
   display: flex;
   flex-flow: column nowrap;
+  gap: 50px;
+  justify-content: space-between;
 }
 
 .formDec{
