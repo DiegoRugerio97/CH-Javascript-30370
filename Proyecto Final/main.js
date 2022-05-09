@@ -86,43 +86,6 @@ const inputString = (mensajePrompt) => {
 }
 
 // ****************************************************************************************************************+
-// Funcion para el calculo del aguinaldo
-const calcularAguinaldo = () => {
-    // Si se ha trabajado minimo un año en la empresa
-    // aguinaldo = salario diario * dias de aguinaldo (por ley en Mexico son 15 minimos, hay empresas que dan mas como prestacion)
-    // Si no, se calculan los dias proporcionales basado en los dias trabajados.
-    let mayorCero = false;
-    let salarioMensual;
-    while (!mayorCero) {
-        salarioMensual = inputInt("¿De cuanto es tu salario mensual en pesos (MXN)?");
-        if (salarioMensual <= 0) {
-            alert("Por favor introduce un valor mayor a 0.");
-        }
-        else {
-            mayorCero = true;
-        }
-    }
-    let salarioDiario = salarioMensual / DIAS_MES;
-    let diasAguinaldo = inputInt("¿Cuantos días de aguinaldo proporciona tu empresa?");
-    let validacion = true;
-    while (validacion) {
-        let aniosEmpresa = inputString("¿Llevas trabajando más de un año en tu empresa?\n Responde 'Si' o 'No'");
-        if (aniosEmpresa == 'Si' || aniosEmpresa == 'si' || aniosEmpresa == 'SI') {
-            validacion = false;
-            return Math.round(diasAguinaldo * salarioDiario);
-        }
-        else if (aniosEmpresa == 'No' || aniosEmpresa == 'no' || aniosEmpresa == 'NO') {
-            let diasTrabajados = inputInt("¿Cuantos dias has trabajado en tu empresa?");
-            let diasProporcionales = (diasTrabajados * diasAguinaldo) / DIAS_ANIO;
-            validacion = false;
-            return Math.round(diasProporcionales * salarioDiario);
-        }
-        else {
-            alert("Por favor, introduce 'Si' o 'No'.");
-        }
-    }
-}
-// ****************************************************************************************************************+
 // Funcion para el calculo de la retencion del Impuesto sobre la renta del salario.
 const calcularISR = () => {
     // Calculo de la retencion del ISR sobre el salario, basado en los limites establecidos por la ley federal del trabajo mexicana.
@@ -282,50 +245,208 @@ const calcularDeclaracionAnual = () => {
         }
     } while (!salir)
 }
+// *************************************************************************************************************************************************
+// Programa utilizando promtos y alerts 
 
-
-let salirMenu = false;
-let menu = `
-    Bienvenido a la calculadora fiscal.
-    Elije una opción para empezar el calculo del concepto.
-    A - Aguinaldo.
-    R - Retencion del ISR del salario.
-    D - Declaración anual.
-    Introduce 'S' para salir.
-`;
+// let salirMenu = false;
+// let menu = `
+//     Bienvenido a la calculadora fiscal.
+//     Elije una opción para empezar el calculo del concepto.
+//     A - Aguinaldo.
+//     R - Retencion del ISR del salario.
+//     D - Declaración anual.
+//     Introduce 'S' para salir.
+// `;
 
 // Display del menu
-do {
-    let opcionSeleccionada = inputString(menu);
-    switch (opcionSeleccionada) {
-        case 'A':
-            alert(`Te corresponde un aguinaldo de $${calcularAguinaldo()}.`);
-            break;
-        case 'a':
-            alert(`Te corresponde un aguinaldo de $${calcularAguinaldo()}.`);
-            break;
-        case 'R':
-            alert(calcularISR());
-            break;
-        case 'r':
-            alert(calcularISR());
-            break;
-        case 'D':
-            calcularDeclaracionAnual();
-            break;
-        case 'd':
-            calcularDeclaracionAnual();
-            break;
-        case 'S':
-            salirMenu = true;
-            break;
-        case 's':
-            salirMenu = true;
-            break;
-        default:
-            alert("Por favor, introduzca una opción válida.")
-            break;
+// do {
+//     let opcionSeleccionada = inputString(menu);
+//     switch (opcionSeleccionada) {
+//         case 'A':
+//             alert(`Te corresponde un aguinaldo de $${calcularAguinaldo()}.`);
+//             break;
+//         case 'a':
+//             alert(`Te corresponde un aguinaldo de $${calcularAguinaldo()}.`);
+//             break;
+//         case 'R':
+//             alert(calcularISR());
+//             break;
+//         case 'r':
+//             alert(calcularISR());
+//             break;
+//         case 'D':
+//             calcularDeclaracionAnual();
+//             break;
+//         case 'd':
+//             calcularDeclaracionAnual();
+//             break;
+//         case 'S':
+//             salirMenu = true;
+//             break;
+//         case 's':
+//             salirMenu = true;
+//             break;
+//         default:
+//             alert("Por favor, introduzca una opción válida.")
+//             break;
+//     }
+
+
+// } while (!salirMenu);
+
+// ***********************************************************************************************************
+// Cambio a Event Listeners
+// Utilidad
+const valorInput = (input) => {
+    return input.value;
+}
+
+// Calculo de Aguinaldo del trabajador
+// ****************************************************************************************************************
+// Informacion de los inputs
+// Inputs
+const inputSalarioAguinaldo = document.getElementById("inputSalarioAg");
+const inputDias = document.getElementById("inputDias");
+const inputDiasTrabajados = document.getElementById("inputDiasTrabajados");
+// Booleanas para validacion
+let salarioAguinaldoCorrecto = false;
+let diasCorrecto = false;
+let diasTrabajadosCorrecto = false;
+
+const botonAguinaldo = document.getElementById("botonAguinaldo");
+
+//Alertas
+const alertas = document.getElementById("alertas");
+const crearAlerta = () => {
+    alertas.innerHTML = `<div class="alert alert-danger" role="alert">
+    Favor de ingresar información correcta en los campos solicitados.
+    </div>`;
+}
+const limpiarAlerta = () => {
+    alertas.innerHTML = "";
+}
+
+
+const validacionFormAguinaldo = () => {
+    if (anioCumplido) {
+        return salarioAguinaldoCorrecto && diasCorrecto;
     }
+    else {
+        return salarioAguinaldoCorrecto && diasCorrecto && diasTrabajadosCorrecto;
+    }
+}
+
+// Handlers para cada input
+const validacionSalarioAguinaldo = (e) => {
+    if (e.target.value <= 0) {
+        e.target.className = "form-control campoTexto invalido";
+        salarioAguinaldoCorrecto = false;
+    }
+    else {
+        e.target.className = "form-control campoTexto";
+        salarioAguinaldoCorrecto = true;
+    }
+    if (validacionFormAguinaldo()) {
+        botonAguinaldo.removeAttribute("disabled");
+        limpiarAlerta();
+    }
+    else {
+        botonAguinaldo.setAttribute("disabled", "");
+        crearAlerta();
+    }
+}
+
+const validacionDias = (e) => {
+    if (e.target.value < 15) {
+        e.target.className = "form-control campoTexto invalido";
+        diasCorrecto = false;
+    }
+    else {
+        e.target.className = "form-control campoTexto";
+        diasCorrecto = true;
+    }
+    if (validacionFormAguinaldo()) {
+        botonAguinaldo.removeAttribute("disabled");
+        limpiarAlerta();
+    }
+    else {
+        botonAguinaldo.setAttribute("disabled", "");
+        crearAlerta();
+    }
+}
+
+const validacionDiasTrabajados = (e) => {
+    if (e.target.value <= 0) {
+        e.target.className = "form-control campoTexto invalido";
+        diasTrabajadosCorrecto = false;
+    }
+    else {
+        e.target.className = "form-control campoTexto";
+        diasTrabajadosCorrecto = true;
+    }
+    if (validacionFormAguinaldo()) {
+        botonAguinaldo.removeAttribute("disabled");
+        limpiarAlerta();
+    }
+    else {
+        botonAguinaldo.setAttribute("disabled", "");
+        crearAlerta();
+    }
+}
+
+// Asignacion de event listeners
+inputSalarioAguinaldo.addEventListener("blur", validacionSalarioAguinaldo);
+inputDias.addEventListener("blur", validacionDias);
+inputDiasTrabajados.addEventListener("blur", validacionDiasTrabajados);
+
+// Input Extra del form para los dias trabajados en caso de no haber cumplido el año
+let anioCumplido = true;
+const inputExtra = document.getElementById("formDiasTrabajados");
+const radioDiasTrabajadosNo = document.getElementById("inputRadioNo");
+const radioDiasTrabajadosSi = document.getElementById("inputRadioSi");
+radioDiasTrabajadosNo.addEventListener("click", () => {
+    inputExtra.className = "form-row";
+    anioCumplido = false;
+    botonAguinaldo.setAttribute("disabled", "");
+    inputDiasTrabajados.value = "";
+});
+radioDiasTrabajadosSi.addEventListener("click", () => {
+    inputExtra.className = "form-row hidden";
+    anioCumplido = true;
+});
 
 
-} while (!salirMenu);
+
+// Logica del calculo de aguinaldo refactorizada
+const calcularAguinaldo = () => {
+    // Si se ha trabajado minimo un año en la empresa
+    // aguinaldo = salario diario * dias de aguinaldo (por ley en Mexico son 15 minimos, hay empresas que dan mas como prestacion)
+    // Si no, se calculan los dias proporcionales basado en los dias trabajados.
+    let salarioDiario = valorInput(inputSalarioAguinaldo) / DIAS_MES;
+    if (anioCumplido) {
+        return Math.round(valorInput(inputDias) * salarioDiario);
+    }
+    else {
+        let diasProporcionales = (valorInput(inputDiasTrabajados) * valorInput(inputDias)) / DIAS_ANIO;
+        return Math.round(diasProporcionales * salarioDiario);
+    }
+}
+
+// Resultados del aguinaldo
+const resultadosAguinaldo = document.getElementById("resultadosAguinaldo");
+
+// Handler para el submit
+const aguinaldoHandler = (e) => {
+    e.preventDefault();
+    resultadosAguinaldo.innerHTML = `<div>
+                                    <span>Te corresponde un aguinaldo de: </span>
+                                    <span> $${calcularAguinaldo()} (MXN)<span/>
+                                    </div>`;
+    // e.target.reset();
+}
+// Se asigna el event listener
+const formAguinaldo = document.getElementById("calcularAguinaldo");
+formAguinaldo.addEventListener("submit", aguinaldoHandler);
+
+
+
